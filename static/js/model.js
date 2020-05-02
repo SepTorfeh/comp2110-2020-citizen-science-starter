@@ -98,9 +98,7 @@ const Model = {
             )
             .then(
                 (data) => {
-                    this.data.observations = data;
-
-                    let event = new CustomEvent("modelUpdated");
+                    let event = new CustomEvent("observationAdded", {detail: data});
                     window.dispatchEvent(event);
                 }
             );
@@ -134,8 +132,8 @@ const Model = {
             return new Date(b.timestamp) - new Date(a.timestamp);
         });
         //taking the first N observations
-        for(let i = 0; i < N; i++){
-             result[i] = observations[i];
+        for (let i = 0; i < N; i++) {
+            result[i] = observations[i];
         }
         return result;
     },
