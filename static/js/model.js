@@ -87,7 +87,23 @@ const Model = {
     // when the request is resolved, creates an "observationAdded" event
     //  with the response from the server as the detail
     add_observation: function (formdata) {
+        fetch(this.observations_url, {
+            method: "POST",
+            body: formdata
+        })
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            )
+            .then(
+                (data) => {
+                    this.data.observations = data;
 
+                    let event = new CustomEvent("modelUpdated");
+                    window.dispatchEvent(event);
+                }
+            );
     },
 
     // get_user_observations - return just the observations for
