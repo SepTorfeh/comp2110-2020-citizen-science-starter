@@ -29,6 +29,12 @@
 
     <div id="content">
 
+      <!-- list of recent observations -->
+      <div id="recent_observations"></div>
+
+      <!-- current top 10 leaderboard of users -->
+      <div id="leaderboard_users"></div>
+      
       <div id="heading">
           
           <hgroup>
@@ -62,6 +68,40 @@
 
 
   <!-- Templates -->
+
+  <!-- list of recent observations -->
+  <script id="observations-list-template" type="text/html">
+    <table>
+        <tr>
+            <th>Participant</th>
+            <th>Leaf Shape</th>
+            <th>Bark Texture</th>
+        </tr>
+        {{#each observations}}
+            <tr>
+                <td class=observationsID data-id={{id}} >{{participant}}</td>
+                <td>{{leaf_shape}}</td>
+                <td>{{bark_texture}}</td> 
+            </tr>
+        {{/each}}
+    </table>
+  </script> 
+
+ <!-- current top 10 leaderboard of users -->
+ <script id="leaderboard-users-list-template" type="text/html">
+  <table>
+      <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+      </tr>
+      {{#each users}}
+          <tr>
+              <td class=usersID data-id={{id}} >{{first_name}}</td>
+              <td>{{last_name}}</td>
+          </tr>
+      {{/each}}
+  </table>
+</script> 
 
   </body>
 </html>

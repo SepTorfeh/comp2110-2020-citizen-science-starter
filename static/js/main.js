@@ -2,6 +2,18 @@ import * as views from './views.js';
 import {Model} from './model.js';
 import {split_hash} from './util';
 
+window.addEventListener("modelUpdated", function(e){
+    let users = Model.get_users();
+    console.log(users);
+    views.list_users_leaderboard_view("leaderboard_users", users);
+
+    let observations = Model.get_observations();
+    views.list_recent_observationst_view("recent_observations",observations);
+
+    
+});
+
+
 function redraw() { 
 
     let content = "<h2>API Test</h2><ul>";
@@ -16,7 +28,9 @@ function redraw() {
 }
 
 window.onload = function() {
-    redraw();
+    // redraw();
+    Model.update_users();
+    //Model.update_observations();
 };
 
 
