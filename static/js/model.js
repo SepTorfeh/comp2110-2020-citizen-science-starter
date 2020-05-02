@@ -93,7 +93,16 @@ const Model = {
     // get_user_observations - return just the observations for
     //   one user as an array
     get_user_observations: function(userid) {
-
+        let observations = this.data.observations;
+        let userObservations = [];
+        for(let i = 0; i < observations.length; i++){
+            if(observations[i].participant === userid)
+            userObservations[i] = observations[i];
+        }
+        userObservations = userObservations.slice().sort(function(a,b){
+            return new Date(b.timestamp) - new Date(a.timestamp);
+        });
+        return userObservations;
     },
 
     // get_recent_observations - return the N most recent
