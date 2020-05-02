@@ -69,7 +69,12 @@ const Model = {
 
     // get_observation - return a single observation given its id
     get_observation: function(observationid) {
-        
+        let observations = this.data.observations;
+        for(let i = 0; i < observations.length; i++){
+            if(observations[i].id === observationid)
+                return observations[i];
+        }
+        return [];
     },
  
     set_observations: function(observations) {
@@ -113,7 +118,12 @@ const Model = {
     // get_user - return the details of a single user given 
     //    the user id
     get_user: function(userid) {
-
+        let users = this.data.users;
+        for(let i = 0; i < users.length; i++){
+            if(users[i].id === userid)
+                return users[i];
+        }
+        return [];
     }
 
 };
