@@ -1,4 +1,4 @@
-export {Model};
+export { Model };
 
 /* 
  * Model class to support the Citizen Science application
@@ -11,9 +11,9 @@ export {Model};
 
 const Model = {
 
-    observations_url: '/api/observations', 
-    users_url:  '/api/users',   
-    
+    observations_url: '/api/observations',
+    users_url: '/api/users',
+
     // this will hold the data stored in the model
     data: {
         observations: [],
@@ -24,60 +24,60 @@ const Model = {
     //    from the server API
     // when the request is resolved, creates a "modelUpdated" event 
     // with the model as the event detail
-    update_users: function() {
+    update_users: function () {
         fetch(this.users_url)
-        .then(
-            function(response) {
-                return response.json();
-            }
-        )
-        .then(
-            (data) => {
-                this.data.users = data;
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            )
+            .then(
+                (data) => {
+                    this.data.users = data;
 
-                let event = new CustomEvent("modelUpdated");
-                window.dispatchEvent(event);
-            }
-        );
+                    let event = new CustomEvent("modelUpdated");
+                    window.dispatchEvent(event);
+                }
+            );
     },
 
     // update_observations - retrieve the latest list of observations
     //   from the server API
     // when the request is resolved, creates a "modelUpdated" event 
     // with the model as the event detail
-    update_observations: function() {
+    update_observations: function () {
         fetch(this.observations_url)
-        .then(
-            function(response) {
-                return response.json();
-            }
-        )
-        .then(
-            (data) => {
-                this.data.observations = data;
+            .then(
+                function (response) {
+                    return response.json();
+                }
+            )
+            .then(
+                (data) => {
+                    this.data.observations = data;
 
-                let event = new CustomEvent("modelUpdated");
-                window.dispatchEvent(event);
-            }
-        );
+                    let event = new CustomEvent("modelUpdated");
+                    window.dispatchEvent(event);
+                }
+            );
     },
 
     // get_observations - return an array of observation objects
-    get_observations: function() {
+    get_observations: function () {
         return this.data.observations;
     },
 
     // get_observation - return a single observation given its id
-    get_observation: function(observationid) {
+    get_observation: function (observationid) {
         let observations = this.data.observations;
-        for(let i = 0; i < observations.length; i++){
-            if(observations[i].id === observationid)
+        for (let i = 0; i < observations.length; i++) {
+            if (observations[i].id === observationid)
                 return observations[i];
         }
         return [];
     },
- 
-    set_observations: function(observations) {
+
+    set_observations: function (observations) {
         this.data.observations = observations;
     },
 
@@ -86,20 +86,23 @@ const Model = {
     //   formdata is a FormData object containing all fields in the observation object
     // when the request is resolved, creates an "observationAdded" event
     //  with the response from the server as the detail
-    add_observation: function(formdata) {
+    add_observation: function (formdata) {
 
     },
 
     // get_user_observations - return just the observations for
     //   one user as an array
-    get_user_observations: function(userid) {
+    get_user_observations: function (userid) {
         let observations = this.data.observations;
         let userObservations = [];
-        for(let i = 0; i < observations.length; i++){
-            if(observations[i].participant === userid)
-            userObservations[i] = observations[i];
+        let j = 0;
+        for (let i = 0; i < observations.length; i++) {
+            if (observations[i].participant === userid) {
+                userObservations[j] = observations[i];
+                j++;
+            }
         }
-        userObservations = userObservations.slice().sort(function(a,b){
+        userObservations = userObservations.slice().sort(function (a, b) {
             return new Date(b.timestamp) - new Date(a.timestamp);
         });
         return userObservations;
@@ -107,32 +110,33 @@ const Model = {
 
     // get_recent_observations - return the N most recent
     //  observations, ordered by timestamp, most recent first
-    get_recent_observations: function(N) {
-
+    get_recent_observations: function (N) {
+        let observations = this.data.observations;
+        
     },
 
     /* 
     * Users
     */
     // get_users - return the array of users
-    get_users: function() {
+    get_users: function () {
         return this.data.users;
     },
 
     // set_users - set the array of users
-    set_users: function(users) {
+    set_users: function (users) {
         this.data.users = users;
     },
 
     // get_user - return the details of a single user given 
     //    the user id
-    get_user: function(userid) {
+    get_user: function (userid) {
         let users = this.data.users;
-        for(let i = 0; i < users.length; i++){
-            if(users[i].id === userid)
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].id === userid)
                 return users[i];
         }
-        return [];
+        return null;
     }
 
 };
