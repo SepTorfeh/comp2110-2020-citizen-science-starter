@@ -112,7 +112,16 @@ const Model = {
     //  observations, ordered by timestamp, most recent first
     get_recent_observations: function (N) {
         let observations = this.data.observations;
-        
+        let result = [];
+        //sorting the observatoins
+        observations = observations.slice().sort(function (a, b) {
+            return new Date(b.timestamp) - new Date(a.timestamp);
+        });
+        //taking the first N observations
+        for(let i = 0; i < N; i++){
+             result[i] = observations[i];
+        }
+        return result;
     },
 
     /* 
