@@ -35,7 +35,7 @@ const Model = {
                 (data) => {
                     this.data.users = data;
 
-                    let event = new CustomEvent("modelUpdated");
+                    let event = new CustomEvent("modelUpdated", {detail: this});
                     window.dispatchEvent(event);
                 }
             );
@@ -56,7 +56,7 @@ const Model = {
                 (data) => {
                     this.data.observations = data;
 
-                    let event = new CustomEvent("modelUpdated");
+                    let event = new CustomEvent("modelUpdated", {detail: this});
                     window.dispatchEvent(event);
                 }
             );
@@ -161,5 +161,6 @@ const Model = {
         }
         return null;
     }
+    
 
 };

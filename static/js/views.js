@@ -18,7 +18,7 @@ function apply_template(targetid, templateid, data) {
 // listUsersView - generate a view of a list of units
 //   and insert it at `targetid` in the document
 function list_recent_observationst_view(targetid, observations) {
-    apply_template(targetid, "observations-list-template", {'observations':observations});
+    apply_template(targetid, "recent-observations-list-template", {'observations':observations});
 }
 
 // userView - generate a view of a individual user

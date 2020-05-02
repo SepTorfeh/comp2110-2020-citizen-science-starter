@@ -30,7 +30,7 @@
     <div id="content">
 
       <!-- list of recent observations -->
-      <div id="recent_observations"></div>
+      <div id="Recent Observations"></div>
 
       <!-- current top 10 leaderboard of users -->
       <div id="leaderboard_users"></div>
@@ -70,22 +70,34 @@
   <!-- Templates -->
 
   <!-- list of recent observations -->
-  <script id="observations-list-template" type="text/html">
+  <!-- <script id="recent-observations-list-template" type="text/html">
+    <h1>Recent Observations</h1>
     <table>
         <tr>
-            <th>Participant</th>
+            <th>ID</th>
             <th>Leaf Shape</th>
             <th>Bark Texture</th>
-        </tr>
+        </tr> 
         {{#each observations}}
             <tr>
-                <td class=observationsID data-id={{id}} >{{participant}}</td>
+                <td class=observationsID data-id={{id}} ><a href="#!/observations/{{id}}">{{id}}</td>
                 <td>{{leaf_shape}}</td>
                 <td>{{bark_texture}}</td> 
             </tr>
         {{/each}}
     </table>
-  </script> 
+  </script>  -->
+
+  <!-- without table, list of recent observations -->
+  <script id="recent-observations-list-template" type="text/html">
+    <h1>Recent Observations</h1>
+  <ul>
+    {{#each observations}}
+    <li><a href="#!/observations/{{id}}">{{id}}</a></li>
+    {{/each}}
+  </ul>
+
+  </script>
 
  <!-- current top 10 leaderboard of users -->
  <script id="leaderboard-users-list-template" type="text/html">
