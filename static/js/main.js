@@ -1,3 +1,6 @@
+import * as views from './views.js';
+import {Model} from './model.js';
+import {split_hash} from './util';
 
 function redraw() { 
 

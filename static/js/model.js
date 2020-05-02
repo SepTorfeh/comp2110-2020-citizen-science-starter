@@ -25,7 +25,20 @@ const Model = {
     // when the request is resolved, creates a "modelUpdated" event 
     // with the model as the event detail
     update_users: function() {
-        
+        fetch(this.users_url)
+        .then(
+            function(response) {
+                return response.json();
+            }
+        )
+        .then(
+            (data) => {
+                this.data.users = data;
+
+                let event = new CustomEvent("modelUpdated");
+                window.dispatchEvent(event);
+            }
+        );
     },
 
     // update_observations - retrieve the latest list of observations
@@ -33,7 +46,20 @@ const Model = {
     // when the request is resolved, creates a "modelUpdated" event 
     // with the model as the event detail
     update_observations: function() {
-        
+        fetch(this.observations_url)
+        .then(
+            function(response) {
+                return response.json();
+            }
+        )
+        .then(
+            (data) => {
+                this.data.observations = data;
+
+                let event = new CustomEvent("modelUpdated");
+                window.dispatchEvent(event);
+            }
+        );
     },
 
     // get_observations - return an array of observation objects
