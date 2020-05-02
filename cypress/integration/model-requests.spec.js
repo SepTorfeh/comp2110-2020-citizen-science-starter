@@ -39,7 +39,7 @@ describe('Model API Requests', function(){
     });
 
     describe("#update_users", function(){
-        it("should eventually trigger a modelUpdated event with updated users", function(done){
+        it("should eventually trigger a modelChanged event with updated users", function(done){
             function handler(e) {
                 let model = e.detail;
                 // event detail should be the model
