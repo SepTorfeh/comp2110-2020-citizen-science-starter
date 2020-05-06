@@ -27,6 +27,7 @@ function list_users_leaderboard_view(targetid, users) {
     apply_template(targetid, "leaderboard-users-list-template", {'users':users});
 }
 
+// template for single user view
 function user_view(targetid, user) {
     apply_template(targetid, "user-template", user);
 }

@@ -33,13 +33,20 @@ window.onload = function() {
     Model.update_observations();
 };
 
+
+//getting the user when clicking on an observation in recent observations
 function hashChange() {
     let hash = split_hash(window.location.hash);
-    if(hash.path === "observations" && hash.id === "166"){
-        let user = Model.get_user(4);
+    let path = hash.path;
+    let id = parseInt(hash.id);
+    if(path === "observations"){
+        let oneObservation = Model.get_observation(id);
+        
+        let user = Model.get_user(oneObservation.participant);
+        
         views.user_view("Recent Observations",user);
-        }
     }
+}
 
 
 window.onhashchange = hashChange;
