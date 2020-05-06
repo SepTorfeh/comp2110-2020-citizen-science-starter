@@ -1,4 +1,4 @@
-export { list_recent_observationst_view, list_users_leaderboard_view };
+export { list_recent_observationst_view, list_users_leaderboard_view, user_view};
 
 // apply_template - apply a template to some data
 //  and insert into the page
@@ -25,4 +25,8 @@ function list_recent_observationst_view(targetid, observations) {
 //   and insert it at `targetid` in the document
 function list_users_leaderboard_view(targetid, users) {
     apply_template(targetid, "leaderboard-users-list-template", {'users':users});
+}
+
+function user_view(targetid, user) {
+    apply_template(targetid, "user-template", user);
 }

@@ -1,119 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Citizen Science</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+<head>
+  <meta charset="UTF-8">
+  <title>Citizen Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+  
+  <!-- fixing favicon.ico 404 (Not Found) error -->
+  <link rel="shortcut icon" href="#">
+
+  <!-- Include Handlebars from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="/static/js/main.js" type=module defer></script>
+</head>
+<body>
+
+  <header>
+    <div id="logo"></div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#!/users">Users</a></li>
+            <li><a href="#!/observations">Observations</a></li>
+            <li><a href="#!/submit">Submit an observation</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div id="content">
+
+    <!-- list of recent observations -->
+    <div id="Recent Observations"></div>
+
+    <!-- current top 10 leaderboard of users -->
+    <div id="leaderboard_users"></div>
     
-    <!-- fixing favicon.ico 404 (Not Found) error -->
-    <link rel="shortcut icon" href="#">
+    <div id="heading">
+        
+        <hgroup>
+            <h1>Citizen Science</h1>
+            <h2>Understanding Our Trees</h2>
+        </hgroup>
+    
+        <div id="target"></div>
 
-    <!-- Include Handlebars from a CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <script src="/static/js/main.js" type=module defer></script>
-  </head>
-  <body>
-
-    <header>
-      <div id="logo"></div>
-      <nav>
-          <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#!/users">Users</a></li>
-              <li><a href="#!/observations">Observations</a></li>
-              <li><a href="#!/submit">Submit an observation</a></li>
-          </ul>
-      </nav>
-    </header>
-
-    <div id="content">
-
-      <!-- list of recent observations -->
-      <div id="Recent Observations"></div>
-
-      <!-- current top 10 leaderboard of users -->
-      <div id="leaderboard_users"></div>
-      
-      <div id="heading">
-          
-          <hgroup>
-              <h1>Citizen Science</h1>
-              <h2>Understanding Our Trees</h2>
-          </hgroup>
-      
-          <div id="target"></div>
-
-      </div>
     </div>
+  </div>
 
-  <footer>
+<footer>
 
-    <div id="social">
-      <ul>
-        <li id="social-twitter"><a href="#">Twitter</a></li>
-        <li id="social-facebook"><a href="#">Facebook</a></li>
-        <li id="social-instagram"><a href="#">Instagram</a></li>
-      </ul>
-    </div>
-
-    <ul class="footer-tos">
-      <li><a href="#">Terms</a></li>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Cookies</a></li>
+  <div id="social">
+    <ul>
+      <li id="social-twitter"><a href="#">Twitter</a></li>
+      <li id="social-facebook"><a href="#">Facebook</a></li>
+      <li id="social-instagram"><a href="#">Instagram</a></li>
     </ul>
-    
-    <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
-  </footer>
+  </div>
 
-
-  <!-- Templates -->
-
-  <!-- list of recent observations -->
-  <!-- <script id="recent-observations-list-template" type="text/html">
-    <h1>Recent Observations</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Leaf Shape</th>
-            <th>Bark Texture</th>
-        </tr> 
-        {{#each observations}}
-            <tr>
-                <td class=observationsID data-id={{id}} ><a href="#!/observations/{{id}}">{{id}}</td>
-                <td>{{leaf_shape}}</td>
-                <td>{{bark_texture}}</td> 
-            </tr>
-        {{/each}}
-    </table>
-  </script>  -->
-
-  <!-- without table, list of recent observations -->
-  <script id="recent-observations-list-template" type="text/html">
-    <h1>Recent Observations</h1>
-  <ul>
-    {{#each observations}}
-    <li><a href="#!/observations/{{id}}">{{id}}</a></li>
-    {{/each}}
+  <ul class="footer-tos">
+    <li><a href="#">Terms</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Cookies</a></li>
   </ul>
+  
+  <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
+</footer>
 
-  </script>
 
- <!-- current top 10 leaderboard of users -->
- <script id="leaderboard-users-list-template" type="text/html">
+<!-- Templates -->
+
+<!-- list of recent observations -->
+<!-- <script id="recent-observations-list-template" type="text/html">
+  <h1>Recent Observations</h1>
   <table>
       <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-      </tr>
-      {{#each users}}
+          <th>ID</th>
+          <th>Leaf Shape</th>
+          <th>Bark Texture</th>
+      </tr> 
+      {{#each observations}}
           <tr>
-              <td class=usersID data-id={{id}} >{{first_name}}</td>
-              <td>{{last_name}}</td>
+              <td class=observationsID data-id={{id}} ><a href="#!/observations/{{id}}">{{id}}</td>
+              <td>{{leaf_shape}}</td>
+              <td>{{bark_texture}}</td> 
           </tr>
       {{/each}}
   </table>
+</script>  -->
+
+<!-- without table, list of recent observations -->
+<script id="recent-observations-list-template" type="text/html">
+  <h1>Recent Observations</h1>
+<ul>
+  {{#each observations}}
+  <li><a href="#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
+  {{/each}}
+</ul>
+
+</script>
+
+<!-- current top 10 leaderboard of users -->
+<script id="leaderboard-users-list-template" type="text/html">
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    {{#each users}}
+        <tr>
+            <td class=usersID data-id={{id}} >{{first_name}}</td>
+            <td>{{last_name}}</td>
+        </tr>
+    {{/each}}
+</table>
 </script> 
 
-  </body>
+<!-- user view -->
+<script id="user-template" type="text/html">
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+        <tr>
+            <td class=usersID data-id={{id}} >{{first_name}}</td>
+            <td>{{last_name}}</td>
+        </tr>
+</table>
+</script> 
+
+</body>
 </html>
