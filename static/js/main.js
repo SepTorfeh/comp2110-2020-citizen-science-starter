@@ -46,6 +46,9 @@ function hashChange() {
         
         views.user_view("Recent Observations",user);
     }
+    else{
+        console.log("change page");
+    }
 }
 
 
