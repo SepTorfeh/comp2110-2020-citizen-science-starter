@@ -37,6 +37,7 @@
     <!-- current top 10 leaderboard of users -->
     <div id="leaderboard_users"></div>
 
+
     <div id="heading">
 
       <hgroup>
@@ -92,43 +93,52 @@
 
   <!-- without table, list of recent observations -->
   <script id="recent-observations-list-template" type="text/html">
-  <h1>Recent Observations</h1>
-<ul>
-  {{#each observations}}
-  <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
-  {{/each}}
-</ul>
+    <h1>Recent Observations</h1>
+      <ul>
+        {{#each observations}}
+        <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
+        {{/each}}
+      </ul>
 
-</script>
+  </script>
 
   <!-- current top 10 leaderboard of users -->
-  <script id="leaderboard-users-list-template" type="text/html">
-<table>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-    </tr>
-    {{#each users}}
+  <!-- <script id="leaderboard-users-list-template" type="text/html">
+    <table>
         <tr>
-            <td class=usersID data-id={{id}} >{{first_name}}</td>
-            <td>{{last_name}}</td>
+            <th>First Name</th>
+            <th>Last Name</th>
         </tr>
-    {{/each}}
-</table>
-</script>
+        {{#each users}}
+            <tr>
+                <td class=usersID data-id={{id}} >{{first_name}}</td>
+                <td>{{last_name}}</td>
+            </tr>
+        {{/each}}
+    </table>
+    </script> -->
+    <script id="leaderboard-users-list-template" type="text/html">
+      <h1>Users</h1>
+        <ul>
+          {{#each users}}
+          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          {{/each}}
+        </ul>
+  
+    </script>
 
-  <!-- user view -->
-  <script id="user-template" type="text/html">
-<table>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-    </tr>
+      <!-- user view -->
+      <script id="user-template" type="text/html">
+    <table>
         <tr>
-            <td class=usersID data-id={{id}} >{{first_name}}</td>
-            <td>{{last_name}}</td>
+            <th>First Name</th>
+            <th>Last Name</th>
         </tr>
-</table>
+            <tr>
+                <td class=usersID data-id={{id}} >{{first_name}}</td>
+                <td>{{last_name}}</td>
+            </tr>
+    </table>
 </script>
 
 </body>
