@@ -1,4 +1,4 @@
-export { list_recent_observationst_view, list_users_leaderboard_view, user_view};
+export { list_recent_observationst_view, list_users_leaderboard_view, user_view };
 
 // apply_template - apply a template to some data
 //  and insert into the page
@@ -10,21 +10,21 @@ function apply_template(targetid, templateid, data) {
     let target = document.getElementById(targetid);
 
     let template = Handlebars.compile(
-                        document.getElementById(templateid).textContent
-                    )
+        document.getElementById(templateid).textContent
+    )
     target.innerHTML = template(data);
 }
 
 // listUsersView - generate a view of a list of units
 //   and insert it at `targetid` in the document
 function list_recent_observationst_view(targetid, observations) {
-    apply_template(targetid, "recent-observations-list-template", {'observations':observations});
+    apply_template(targetid, "recent-observations-list-template", { 'observations': observations });
 }
 
 // userView - generate a view of a individual user
 //   and insert it at `targetid` in the document
 function list_users_leaderboard_view(targetid, users) {
-    apply_template(targetid, "leaderboard-users-list-template", {'users':users});
+    apply_template(targetid, "leaderboard-users-list-template", { 'users': users });
 }
 
 // template for single user view

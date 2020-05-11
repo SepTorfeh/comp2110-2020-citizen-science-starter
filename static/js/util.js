@@ -1,4 +1,4 @@
-export {split_hash};
+export { split_hash };
 
 // split_hash - given a hash path like "#!/observations/2" 
 //   return an object with properties `path` ("observations") and `id` (2)
