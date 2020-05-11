@@ -4,30 +4,33 @@ import { split_hash } from './util.js';
 
 window.addEventListener("modelUpdated", function (e) {
 
+    //getting the recent observations
     let observations = Model.get_recent_observations(10);
     views.list_recent_observationst_view("Recent Observations", observations);
 
+    //-------------------------------------------------------------------------
+
+    //getting the top 10 users 
     let users = Model.get_users();
     let userObservations = [];
+    //getting all of the observations for each user
     for (let i = 0; i < users.length; i++) {
-        //console.log(users[i].id);
         userObservations[i] = Model.get_user_observations(users[i].id);
     }
+    //sort "userObservations" array based on the length
     let sortedUserObservations = userObservations.slice().sort((a, b) => {
         return b.length - a.length;
     });
-
+    //now that we have the sorted observations we get thier id
     let userID = [];
     for (let i = 0; i < 10; i++) {
         userID[i] = sortedUserObservations[i][0].participant;
     }
-    console.log(userID);
-
+    //now we get top 10 users based on their observations
     let userLeaderBoard = [];
     for (let i = 0; i < 10; i++) {
         userLeaderBoard[i] = Model.get_user(userID[i]);
     }
-
 
     views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
 
