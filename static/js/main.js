@@ -27,7 +27,9 @@ window.addEventListener("modelUpdated", function (e) {
     //now that we have the sorted observations we get thier id
     let userID = [];
     for (let i = 0; i < 10; i++) {
-        userID[i] = sortedUserObservations[i][0].participant;
+        if (sortedUserObservations[i].length > 0) {
+            userID[i] = sortedUserObservations[i][0].participant;
+        }
     }
 
 
@@ -76,14 +78,16 @@ function hashChange() {
 
     //Home page
     if (path == "") {
-        let observations = Model.get_recent_observations(10);
+        //observations
+        let observations = e.detail.get_recent_observations(10);
         views.list_recent_observationst_view("Recent Observations", observations);
-
-        let users = Model.get_users();
+        //--------------------------------------------
+        //top 10 users
+        let users = e.detail.get_users();
         let userObservations = [];
         //getting all of the observations for each user
         for (let i = 0; i < users.length; i++) {
-            userObservations[i] = Model.get_user_observations(users[i].id);
+            userObservations[i] = e.detail.get_user_observations(users[i].id);
         }
         //sort "userObservations" array based on the length
         let sortedUserObservations = userObservations.slice().sort((a, b) => {
@@ -99,7 +103,7 @@ function hashChange() {
         //now we get top 10 users based on their observations
         let userLeaderBoard = [];
         for (let i = 0; i < 10; i++) {
-            userLeaderBoard[i] = Model.get_user(userID[i]);
+            userLeaderBoard[i] = e.detail.get_user(userID[i]);
         }
 
         views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
@@ -108,16 +112,16 @@ function hashChange() {
     //Observation
     else if (path === "observations") {
         if (id === undefined) {
-            let observations = Model.get_observations();
+            let observations = e.detail.get_observations();
             views.list_recent_observationst_view("Recent Observations", observations);
             //setting leaderboard to empty
             document.getElementById("leaderboard_users").innerHTML = "";
         }
         else {
             id = parseInt(hash.id);
-            let oneObservation = Model.get_observation(id);
+            let oneObservation = e.detail.get_observation(id);
 
-            let user = Model.get_user(oneObservation.participant);
+            let user = e.detail.get_user(oneObservation.participant);
 
             views.user_view("Recent Observations", user);
             //setting leaderboard to empty
@@ -127,14 +131,14 @@ function hashChange() {
     }
     else if (path === "users") {
         if (id === undefined) {
-            let users = Model.get_users();
+            let users = e.detail.get_users();
             views.list_users_leaderboard_view("leaderboard_users", users);
             //setting leaderboard to empty
             document.getElementById("Recent Observations").innerHTML = "";
         }
         else {
             id = parseInt(hash.id);
-            let observations = Model.get_user_observations(id);
+            let observations = e.detail.get_user_observations(id);
             views.list_recent_observationst_view("Recent Observations", observations);
             //setting leaderboard to empty
             document.getElementById("leaderboard_users").innerHTML = "";
