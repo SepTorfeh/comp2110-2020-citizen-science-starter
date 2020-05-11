@@ -3,21 +3,24 @@ import { Model } from './model.js';
 import { split_hash } from './util.js';
 
 window.addEventListener("modelUpdated", function (e) {
+    console.log(e);
 
     //getting the recent observations
-    let observations = Model.get_recent_observations(10);
+    let observations = e.detail.get_recent_observations(10);
     views.list_recent_observationst_view("Recent Observations", observations);
 
     //-------------------------------------------------------------------------
 
     //getting the top 10 users 
-    let users = Model.get_users();
+    let users = e.detail.get_users();
     let userObservations = [];
     //getting all of the observations for each user
     for (let i = 0; i < users.length; i++) {
-        userObservations[i] = Model.get_user_observations(users[i].id);
+        userObservations[i] = e.detail.get_user_observations(users[i].id);
     }
     //sort "userObservations" array based on the length
+    console.log(userObservations);
+
     let sortedUserObservations = userObservations.slice().sort((a, b) => {
         return b.length - a.length;
     });
@@ -26,10 +29,12 @@ window.addEventListener("modelUpdated", function (e) {
     for (let i = 0; i < 10; i++) {
         userID[i] = sortedUserObservations[i][0].participant;
     }
+
+
     //now we get top 10 users based on their observations
     let userLeaderBoard = [];
     for (let i = 0; i < 10; i++) {
-        userLeaderBoard[i] = Model.get_user(userID[i]);
+        userLeaderBoard[i] = e.detail.get_user(userID[i]);
     }
 
     views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
@@ -58,6 +63,7 @@ window.onload = function () {
     // redraw();
     Model.update_users();
     Model.update_observations();
+
 };
 
 window.onhashchange = hashChange;
@@ -86,7 +92,9 @@ function hashChange() {
         //now that we have the sorted observations we get thier id
         let userID = [];
         for (let i = 0; i < 10; i++) {
-            userID[i] = sortedUserObservations[i][0].participant;
+            if (sortedUserObservations[i].length > 0) {
+                userID[i] = sortedUserObservations[i][0].participant;
+            }
         }
         //now we get top 10 users based on their observations
         let userLeaderBoard = [];
@@ -117,14 +125,14 @@ function hashChange() {
         }
 
     }
-    else if(path === "users"){
-        if(id === undefined){
+    else if (path === "users") {
+        if (id === undefined) {
             let users = Model.get_users();
             views.list_users_leaderboard_view("leaderboard_users", users);
             //setting leaderboard to empty
             document.getElementById("Recent Observations").innerHTML = "";
         }
-        else{
+        else {
             id = parseInt(hash.id);
             let observations = Model.get_user_observations(id);
             views.list_recent_observationst_view("Recent Observations", observations);
