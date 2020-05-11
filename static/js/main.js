@@ -4,11 +4,12 @@ import {split_hash} from './util.js';
 
 window.addEventListener("modelUpdated", function(e){
 
-    let observations = Model.get_recent_observations(5);
+    let observations = Model.get_recent_observations(10);
     views.list_recent_observationst_view("Recent Observations",observations);
 
     let users = Model.get_users();
     views.list_users_leaderboard_view("leaderboard_users", users);
+
     
 });
 
@@ -39,16 +40,22 @@ function hashChange() {
     let hash = split_hash(window.location.hash);
     let path = hash.path;
     let id = parseInt(hash.id);
-    if(path === "observations"){
+    if(path == ""){
+        let observations = Model.get_recent_observations(5);
+        views.list_recent_observationst_view("Recent Observations",observations);
+
+        let users = Model.get_users();
+        views.list_users_leaderboard_view("leaderboard_users", users);
+
+    }
+    else if(path === "observations"){
         let oneObservation = Model.get_observation(id);
         
         let user = Model.get_user(oneObservation.participant);
         
         views.user_view("Recent Observations",user);
     }
-    else{
-        console.log("change page");
-    }
+    
 }
 
 
