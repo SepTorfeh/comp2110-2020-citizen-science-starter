@@ -32,7 +32,6 @@ window.addEventListener("modelUpdated", function (e) {
         }
     }
 
-
     //now we get top 10 users based on their observations
     let userLeaderBoard = [];
     for (let i = 0; i < 10; i++) {
@@ -40,8 +39,6 @@ window.addEventListener("modelUpdated", function (e) {
     }
 
     views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
-
-
 
 
 });
