@@ -41,6 +41,35 @@ window.addEventListener("modelUpdated", function (e) {
     views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
 
 
+    //check for the hash
+    let hash = split_hash(window.location.hash);
+    let path = hash.path;
+    let id = hash.id;
+    if (path === "observations") {
+        if (id === undefined) {
+            let observations = Model.get_observations();
+            views.list_recent_observationst_view("Recent Observations", observations);
+            //setting leaderboard to empty
+            document.getElementById("leaderboard_users").innerHTML = "";
+        }
+    }
+    if (path === "users") {
+        if (id === undefined) {
+            let users = Model.get_users();
+            views.list_users_leaderboard_view("leaderboard_users", users);
+            //setting leaderboard to empty
+            document.getElementById("Recent Observations").innerHTML = "";
+        }
+        else {
+            id = parseInt(hash.id);
+            let user = Model.get_user(id);
+            let observations = Model.get_user_observations(id);
+            views.user_view("Recent Observations", user);
+            views.list_recent_observationst_view("leaderboard_users", observations);
+
+        }
+    }
+
 });
 
 
@@ -61,7 +90,8 @@ function redraw() {
 window.onload = function () {
     // redraw();
     Model.update_users();
-    Model.update_observations();
+    Model.update_observations();    
+
 
 };
 
@@ -106,7 +136,7 @@ function hashChange() {
         views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
 
     }
-    //Observation
+    //Observations
     else if (path === "observations") {
         if (id === undefined) {
             let observations = Model.get_observations();
@@ -126,6 +156,7 @@ function hashChange() {
         }
 
     }
+    //users
     else if (path === "users") {
         if (id === undefined) {
             let users = Model.get_users();
@@ -135,10 +166,10 @@ function hashChange() {
         }
         else {
             id = parseInt(hash.id);
+            let user = Model.get_user(id);
             let observations = Model.get_user_observations(id);
-            views.list_recent_observationst_view("Recent Observations", observations);
-            //setting leaderboard to empty
-            document.getElementById("leaderboard_users").innerHTML = "";
+            views.user_view("Recent Observations", user);
+            views.list_recent_observationst_view("leaderboard_users", observations);
 
         }
     }
