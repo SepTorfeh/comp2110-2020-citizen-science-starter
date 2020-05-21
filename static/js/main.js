@@ -45,7 +45,7 @@ window.addEventListener("modelUpdated", function (e) {
     let hash = split_hash(window.location.hash);
     let path = hash.path;
     let id = hash.id;
-    if (path === "observations") {
+    if (path.match("observations")) {
         if (id === undefined) {
             let observations = Model.get_observations();
             views.list_recent_observationst_view("Recent Observations", observations);
