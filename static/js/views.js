@@ -24,6 +24,9 @@ function list_recent_observationst_view(targetid, observations) {
 // userView - generate a view of a individual user
 //   and insert it at `targetid` in the document
 function list_users_leaderboard_view(targetid, users) {
+    //
+    
+
     apply_template(targetid, "leaderboard-users-list-template", { 'users': users });
 }
 
