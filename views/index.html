@@ -1,78 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Citizen Science</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+  <head>
+    <meta charset="UTF-8">
+    <title>Citizen Science</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 
-  <!-- fixing favicon.ico 404 (Not Found) error -->
-  <link rel="shortcut icon" href="#">
+    <!-- fixing favicon.ico 404 (Not Found) error -->
+    <link rel="shortcut icon" href="#">
 
-  <!-- Include Handlebars from a CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-  <script src="/static/js/main.js" type=module defer></script>
-</head>
+    <!-- Include Handlebars from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="/static/js/main.js" type=module defer></script>
+  </head>
 
-<body>
+  <body>
 
-  <header>
-    <div id="logo"></div>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#!/users">Users</a></li>
-        <li><a href="#!/observations">Observations</a></li>
-        <li><a href="#!/submit">Submit an observation</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+      <div id="logo"></div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#!/users">Users</a></li>
+          <li><a href="#!/observations">Observations</a></li>
+          <li><a href="#!/submit">Submit an observation</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <div id="content">
+    <div id="content">
 
-    <!-- list of recent observations -->
-    <div id="recent_observations"></div>
+      <div id="heading">
 
-    <!-- current top 10 leaderboard of users -->
-    <div id="leaderboard_users"></div>
+        <hgroup>
+          <h1>Citizen Science</h1>
+          <h2>Understanding Our Trees</h2>
+        </hgroup>
 
+        <div id="target"></div>
+        <!-- list of recent observations -->
+        <div id="recent_observations">
+        </div>
 
-    <div id="heading">
+        <!-- current top 10 leaderboard of users -->
+        <div id="leaderboard_users">
+        </div>
 
-      <hgroup>
-        <h1>Citizen Science</h1>
-        <h2>Understanding Our Trees</h2>
-      </hgroup>
-
-      <div id="target"></div>
-
-    </div>
-  </div>
-
-  <footer>
-
-    <div id="social">
-      <ul>
-        <li id="social-twitter"><a href="#">Twitter</a></li>
-        <li id="social-facebook"><a href="#">Facebook</a></li>
-        <li id="social-instagram"><a href="#">Instagram</a></li>
-      </ul>
+      </div>
     </div>
 
-    <ul class="footer-tos">
-      <li><a href="#">Terms</a></li>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Cookies</a></li>
-    </ul>
+    <footer>
 
-    <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
-  </footer>
+      <div id="social">
+        <ul>
+          <li id="social-twitter"><a href="#">Twitter</a></li>
+          <li id="social-facebook"><a href="#">Facebook</a></li>
+          <li id="social-instagram"><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+
+      <ul class="footer-tos">
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+
+      <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
+    </footer>
 
 
-  <!-- Templates -->
+    <!-- Templates -->
 
-  <!-- list of recent observations -->
+    <!-- without table, list of recent observations -->
+    <script id="recent-observations-list-template" type="text/html">
+      <h1>Recent Observations</h1>
+        <ul>
+          {{#each observations}}
+          <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
+          {{/each}}
+        </ul>
+    </script>
+
+    <!-- observation list -->
+    <script id="observations-list-template" type="text/html">
+      <h1>Observations</h1>
+        <ul>
+          {{#each observations}}
+          <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
+          {{/each}}
+        </ul>
+    </script>
+
+    <!-- single observation -->
+    <script id="observation-template" type="text/html">
+      <h1>Tree Observation</h1>
+      <ul>
+        <li>Location: {{location}}</li>
+        <li>Tempreature: {{temperature}}</li>
+        <li>Weather: {{weather}}</li>
+        <li>Wind: {{wind}}</li>
+        <li>Tree Height: {{height}}</li>
+        <li>Tree Girth at Base: {{girth}}</li>
+        <li>Leaf Size: {{leaf_size}}</li>
+        <li>Leaf Shape: {{leaf_shape}}</li>
+        <li>Bark Colour: {{bark_colour}}</li>
+        <li>Bark Texture: {{bark_texture}}</li>
+      </ul>
+    </script>
+
+    <!-- user leaderboard -->
+    <script id="leaderboard-users-list-template" type="text/html">
+      <h1>Users leaderboard</h1>
+        <ul>
+          {{#each users}}
+          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          {{/each}}
+        </ul>
+    </script>
+
+    <!-- single-user-view -->
+    <script id="user-template" type="text/html">
+      <h1>User</h1>
+      <div><img src="{{avatar}}" alt="{{first_name}}"></div>
+      <ul>
+        <li>{{first_name}} {{last_name}}</li>
+      </ul>
+    </script>
+    
+    <!-- form tamplate -->
+    <script id="form-template" type="text/html">
+      <h1>Tree Observation</h1>
+      <form action="">
+        <fieldset>
+          <legend>General</legend> 
+          <!-- participant -->
+          <label for="participant"> Participant </label>
+          <input type="text" id="participant" name="participant" value="0"><br>
+          <!-- location -->
+          <label for="location"> Location </label>
+          <input type="text" id="location" name="location" placeholder="Suburb, State"><br>
+          <!-- temperature -->
+          <label for="temperature"> Tempreature </label>
+          <input type="text" id="temperature" name="temperature"><br>
+          <!-- weather -->
+          <label for="weather"> Weather </label>
+          <select id="weather" name="weather">
+            <option value="fine">Fine</option>
+            <option value="sunny">Sunny</option>
+            <option value="raining">Raining</option>
+            <option value="stormy">Stormy</option>
+          </select><br>
+          <!-- wind -->
+          <label for="wind"> Wind </label>
+          <select id="wind" name="wind">
+            <option value="none">None</option>
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="strong">Strong</option>
+          </select><br>
+        </fieldset>
+        <fieldset>
+          <legend>About Your Tree</legend>
+          <!-- tree height -->
+          <label for="height"> Tree Height </label>
+          <input type="text" id="height" name="height"><br>
+          <!-- tree girth -->
+          <label for="girth"> Tree Girth at Base </label>
+          <input type="text" id="girth" name="girth"><br>
+          <!-- leaf size -->
+          <label for="leaf_size"> Leaf Size </label>
+          <select name="leaf_size" id="leaf_size">
+            <option value="small"> Small </option>
+            <option value="medium"> Medium </option>
+            <option value="large"> Large </option>
+          </select><br>
+          <!-- leaf shape -->
+          <label for="leaf_shape"> Leaf Shape </label>
+          <select name="leaf_shape" id="leaf_shape">
+            <option value="rounded"> Rounded </option>
+            <option value="pointy"> Pointy </option>
+            <option value="divided"> Divided </option>
+          </select><br>
+          <!-- bark colour -->
+          <label for="bark_colour"> Bark Colour </label>
+          <select name="bark_colour" id="bark_colour">
+            <option value="grey"> Grey </option>
+            <option value="silver"> Silver </option>
+            <option value="brown"> Brown </option>
+            <option value="red"> Red </option>
+          </select><br>
+          <!-- bark texture -->
+          <label for="bark_texture"> Bark Texture </label>
+          <select name="bark_texture" id="bark_texture">
+            <option value="smooth"> Smooth </option>
+            <option value="spotty"> Spotty </option>
+            <option value="furry"> Furry </option>
+            <option value="peeling"> Peeling </option>
+            <option value="crinkles"> Crinkles </option>
+          </select><br>
+        </fieldset>
+        <!-- submit button -->
+        <input type="submit" value="Submit">
+
+
+      </form>
+
+
+    </script>
+
+  </body>
+
+</html>
+
+<!-- list of recent observations -->
   <!-- <script id="recent-observations-list-template" type="text/html">
   <h1>Recent Observations</h1>
   <table>
@@ -91,17 +232,6 @@
   </table>
 </script>  -->
 
-  <!-- without table, list of recent observations -->
-  <script id="recent-observations-list-template" type="text/html">
-    <h1>Recent Observations</h1>
-      <ul>
-        {{#each observations}}
-        <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
-        {{/each}}
-      </ul>
-
-  </script>
-
   <!-- current top 10 leaderboard of users -->
   <!-- <script id="leaderboard-users-list-template" type="text/html">
     <table>
@@ -117,37 +247,3 @@
         {{/each}}
     </table>
     </script> -->
-    <script id="leaderboard-users-list-template" type="text/html">
-      <h1>Users leaderboard</h1>
-        <ul>
-          {{#each users}}
-          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
-          {{/each}}
-        </ul>
-  
-    </script>
-      <!-- obsertvation-to-user-view -->
-    <script id="user-template" type="text/html">
-      <h1>User</h1>
-      <ul>
-        <li>{{first_name}} {{last_name}}</li>
-      </ul>
-
-    </script>
-      <!-- user view -->
-    <!-- <script id="user-template" type="text/html">
-      <table>
-          <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-          </tr>
-              <tr>
-                  <td class=usersID data-id={{id}} >{{first_name}}</td>
-                  <td>{{last_name}}</td>
-              </tr>
-      </table>
-</script> -->
-
-</body>
-
-</html>

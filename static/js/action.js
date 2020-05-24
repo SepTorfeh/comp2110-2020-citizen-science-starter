@@ -44,7 +44,7 @@ function hashChange() {
 
     //Home page
     if (path == "") {
-        //observations
+        //recent observations
         let observations = Model.get_recent_observations(10);
         views.list_recent_observationst_view("recent_observations", observations);
         //--------------------------------------------
@@ -60,7 +60,7 @@ function hashChange() {
     else if (path === "observations") {
         if (id === undefined) {
             let observations = Model.get_observations();
-            views.list_recent_observationst_view("recent_observations", observations);
+            views.list_observationst_view("recent_observations", observations);
             //setting leaderboard to empty
             document.getElementById("leaderboard_users").innerHTML = "";
         }
@@ -71,8 +71,9 @@ function hashChange() {
             let user = Model.get_user(oneObservation.participant);
 
             views.user_view("recent_observations", user);
-            //setting leaderboard to empty
-            document.getElementById("leaderboard_users").innerHTML = "";
+            
+            views.observation_view("leaderboard_users", oneObservation);
+            
         }
 
     }
@@ -92,5 +93,10 @@ function hashChange() {
             views.list_recent_observationst_view("leaderboard_users", observations);
 
         }
+    }
+    //submit
+    else if(path === "submit"){
+        views.submit_view("recent_observations");
+        document.getElementById("leaderboard_users").innerHTML = "";
     }
 }
