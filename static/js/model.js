@@ -71,7 +71,7 @@ const Model = {
     get_observation: function (observationid) {
         let observations = this.data.observations;
         for (let i = 0; i < observations.length; i++) {
-            if (observations[i].id === observationid)
+            if (parseInt(observations[i].id) === parseInt(observationid))
                 return observations[i];
         }
         return [];
@@ -111,7 +111,7 @@ const Model = {
         let userObservations = [];
         let j = 0;
         for (let i = 0; i < observations.length; i++) {
-            if (observations[i].participant === userid) {
+            if (parseInt(observations[i].participant) === parseInt(userid)) {
                 userObservations[j] = observations[i];
                 j++;
             }
@@ -156,7 +156,7 @@ const Model = {
     get_user: function (userid) {
         let users = this.data.users;
         for (let i = 0; i < users.length; i++) {
-            if (users[i].id === userid)
+            if (parseInt(users[i].id) === parseInt(userid))
                 return users[i];
         }
         return null;

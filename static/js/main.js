@@ -28,6 +28,14 @@ window.addEventListener("modelUpdated", function (e) {
 
 });
 
+window.addEventListener("observationAdded", function(e){
+    if(e.detail.status === "success"){
+        Model.update_observations();
+        //going to the user 0 page
+        window.location.hash = "!/users/0";
+    }
+});
+
 window.onhashchange = action.hashChange;
 
 

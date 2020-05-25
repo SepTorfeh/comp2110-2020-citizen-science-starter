@@ -12,8 +12,6 @@ function userSortForLeaderboard(users, n) {
         userObservations[i] = Model.get_user_observations(users[i].id);
     }
     //sort "userObservations" array based on the length
-    console.log(userObservations);
-
     let sortedUserObservations = userObservations.slice().sort((a, b) => {
         return b.length - a.length;
     });
@@ -32,7 +30,6 @@ function userSortForLeaderboard(users, n) {
     }
     return userLeaderBoard;
 }
-
 
 //-----------------------------------------------------------------------------------
 
@@ -68,7 +65,7 @@ function hashChange() {
             id = parseInt(hash.id);
             let oneObservation = Model.get_observation(id);
 
-            let user = Model.get_user(oneObservation.participant);
+            let user = Model.get_user(parseInt(oneObservation.participant));
 
             views.user_view("recent_observations", user);
             
@@ -98,5 +95,25 @@ function hashChange() {
     else if(path === "submit"){
         views.submit_view("recent_observations");
         document.getElementById("leaderboard_users").innerHTML = "";
+        //handeling the form submition
+        let form = document.getElementById("form");
+    
+        form.onsubmit = function observationFormHandeler() {  
+            let formdata = new FormData(this);
+            //checking if any field is not been filled
+            if(formdata.get("location") === ""){
+                window.alert("Please enter your location");
+            } else if(formdata.get("temperature") === ""){
+                window.alert("Please enter the temperature");
+            } else if(formdata.get("height") === ""){
+                window.alert("Please enter the hight");
+            } else if(formdata.get("girth") === ""){
+                window.alert("Please enter the girth");
+            } else{
+                Model.add_observation(formdata);
+            }
+            return false;
+        }
     }
 }
+
