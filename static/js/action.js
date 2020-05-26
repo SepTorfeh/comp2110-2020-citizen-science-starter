@@ -51,7 +51,6 @@ function hashChange() {
         let userLeaderBoard = userSortForLeaderboard(users, 10);
         //viewing the leaderboard
         views.list_users_leaderboard_view("leaderboard_users", userLeaderBoard);
-
     }
     //Observations
     else if (path === "observations") {
@@ -69,10 +68,8 @@ function hashChange() {
 
             views.user_view("recent_observations", user);
             
-            views.observation_view("leaderboard_users", oneObservation);
-            
+            views.observation_view("leaderboard_users", oneObservation);  
         }
-
     }
     //users
     else if (path === "users") {
@@ -88,7 +85,6 @@ function hashChange() {
             let observations = Model.get_user_observations(id);
             views.user_view("recent_observations", user);
             views.list_recent_observationst_view("leaderboard_users", observations);
-
         }
     }
     //submit
@@ -98,22 +94,56 @@ function hashChange() {
         //handeling the form submition
         let form = document.getElementById("form");
     
-        form.onsubmit = function observationFormHandeler() {  
-            let formdata = new FormData(this);
-            //checking if any field is not been filled
-            if(formdata.get("location") === ""){
-                window.alert("Please enter your location");
-            } else if(formdata.get("temperature") === ""){
-                window.alert("Please enter the temperature");
-            } else if(formdata.get("height") === ""){
-                window.alert("Please enter the hight");
-            } else if(formdata.get("girth") === ""){
-                window.alert("Please enter the girth");
-            } else{
-                Model.add_observation(formdata);
-            }
-            return false;
-        }
+        form.onsubmit = observationFormHandeler;
     }
 }
 
+function observationFormHandeler() {  
+    let location = document.getElementById("location_requirement");
+    let temperature = document.getElementById("temperature_requirement");
+    let hight =  document.getElementById("height_requirement");
+    let girth = document.getElementById("girth_requirement");
+
+    let formdata = new FormData(this);
+
+    let locationValue = formdata.get("location");
+    let temperatureValue = formdata.get("temperature");
+    let hightValue = formdata.get("height");
+    let girthValue = formdata.get("girth");
+    //checking if any field is not been filled
+    if((locationValue === "") || (temperatureValue === "") || (hightValue === "") || (girthValue === "")){
+       
+        if(locationValue === ""){
+            location.innerHTML = "Missing required field: location";
+        } else{
+            location.innerHTML = "";
+        }
+
+        if(temperatureValue === ""){
+            temperature.innerHTML = "Missing required field: temperature";
+        } else{
+            temperature.innerHTML = "";
+        }
+
+        if(hightValue === ""){
+            hight.innerHTML = "Missing required field: height";
+        } else{
+            hight.innerHTML = "";
+        }
+
+        if(girthValue === ""){
+            girth.innerHTML = "Missing required field: girth";
+        } else{
+            girth.innerHTML = "";
+        }
+
+    } else{
+        location.innerHTML = "";
+        temperature.innerHTML = "";
+        hight.innerHTML = "";
+        girth.innerHTML = "";
+        Model.add_observation(formdata);
+    }
+ 
+    return false;
+}
