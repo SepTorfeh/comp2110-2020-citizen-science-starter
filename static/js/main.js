@@ -4,11 +4,11 @@ import { split_hash } from './util.js';
 import * as action from './action.js';
 
 window.onload = function () {
-    // redraw();
     Model.update_users();
     Model.update_observations();    
 };
 
+//checking to see if modelUpdated has happend
 window.addEventListener("modelUpdated", function (e) {
     //getting the 10 recent observations
     let observations = Model.get_recent_observations(10);
@@ -28,7 +28,9 @@ window.addEventListener("modelUpdated", function (e) {
 
 });
 
+//this is for when the form has been submitted
 window.addEventListener("observationAdded", function(e){
+    //check if the form successfully has been added to the API
     if(e.detail.status === "success"){
         Model.update_observations();
         //going to the user 0 page
@@ -36,6 +38,7 @@ window.addEventListener("observationAdded", function(e){
     }
 });
 
+//checking which page we are on 
 window.onhashchange = action.hashChange;
 
 

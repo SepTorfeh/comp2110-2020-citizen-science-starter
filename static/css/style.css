@@ -1,23 +1,263 @@
 /* sample spreadshet - you should replace all of this! */
+
+/* style for the form */
+
+.label_form {
+    display: inline-block;
+    min-width: 120px;
+}
+
+.input_form {
+    display: inline-block;
+    border: 2px;
+    border-radius: 5px;
+}
+
+.warning_form {
+    color: red;
+    margin-left: 15px;
+}
+
+/* ---------------------------- */
+
 body {
-    margin: 100px;
+    background-color: white;
+    margin: 0;
 }
 
 header {
+    display: grid;
+    grid-template-columns: 0.5fr 5fr;
+    grid-template-rows: 1fr;
     width: 100%;
-    background-color: coral;
+    background-color: #2979FF;
+}
+
+#logo img {
+    width: 100%;
+    height: 100%;
+}
+
+#logo {
+    grid-column: 1/2;
+    margin: auto;
+}
+
+/* style for the nav bar */
+
+header nav {
+    grid-column: 2/3;
+    margin: auto;
+}
+
+#top-nav {
+    list-style-type: none;
+}
+
+#top-nav li {
+    float: left;
+    width: 4fr;
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    margin-left: 0px;
+}
+
+#top-nav li a {
+    color: black;
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: calc(18px + 6 * ((100vw - 320px) / 680));
+    margin-left: 0px;
+}
+
+#top-nav li a:hover {
+    transform: scale(1.1);
+    transition: 1s ease all;
+}
+
+/* title of the page */
+
+#content {
+    display: grid;
+    grid-template-rows: 1fr;
 }
 
 #heading {
-    background-color: gainsboro;
+    background-color: #80CBC4;
+    text-align: center;
+    grid-row: 1/2;
 }
 
-#whatis {
-    width: 300px;
-    background-color: forestgreen;
-    border: 10px solid orchid;
+/* dvi for the template, recent observation and user leaderboard */
+
+#template-div {
+   margin: 0px 25vw;
 }
 
-footer {
-    background-color: yellow;
+#template-div h1{
+    text-align: center;
+    border-bottom: 6px solid #0D47A1;
+    background-color: #2979FF;
+}
+
+#recent_observations {
+    display: block;
+    background-color: #80CBC4;
+    
+}
+
+/* user-view-template when is it is in the html */
+#user {
+    text-align: center;
+}
+#user img {
+    background-color: white;
+    border: 5px solid lightgrey;
+}
+#user ul {
+    list-style-type: none;
+    font-size: x-large;
+    padding: 0;
+}
+
+#leaderboard_users {
+    display: block;
+    background-color: #80CBC4;
+    margin-bottom: 30px;
+}
+
+#observation-table-of-content {
+    background-color: #4DB6AC;
+    text-align: center;
+    width: 100%;
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+#observation-table-of-content td {
+    border: 3px solid black;
+}
+
+/* footer sytle */
+
+footer{
+    margin: 0;
+    background-color: #2979FF;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-rows: 1fr;
+}
+
+#copyright{
+    font-size: 9px;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin-left: 10px;
+}
+
+#social{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    margin: auto;
+}
+
+.footer-tos{
+    grid-column: 3/4;   
+    grid-row: 1/2; 
+    margin: auto;
+}
+
+footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+footer li {
+    float: left;
+}
+  
+footer li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+/* when the size get's small (like on a phone) */
+
+@media(max-width: 670px){
+    header{ 
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 1fr;
+    }
+
+    #logo {
+        grid-column: 1/2;
+        grid-row: 1/2;
+        margin: auto;
+    }
+
+    #logo img {
+        width: 100%;
+        height: 50%;
+    }
+    
+    header nav {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        margin: auto;
+    }
+
+    #top-nav li  {
+        float: none;
+    }
+
+    #top-nav li a {
+        font-size: 7vw; 
+    }
+
+    #template-div {
+        margin: 0px 10vw;
+     }
+
+    #user img{
+        width: 90%;
+    }
+
+    footer{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr  1fr 0.5fr;
+    }
+
+    #copyright{
+        grid-column: 1/2;
+        grid-row: 3/4;
+        margin: auto;
+    }
+    
+    #social{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        font-size: 4vw; 
+    }
+    
+    .footer-tos{
+        grid-column: 1/2;   
+        grid-row: 2/3; 
+        font-size: 4vw; 
+    }
+
+    footer li {
+        float: none;
+    }
+
 }

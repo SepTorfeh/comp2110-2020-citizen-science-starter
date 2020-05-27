@@ -15,15 +15,14 @@ function userSortForLeaderboard(users, n) {
     let sortedUserObservations = userObservations.slice().sort((a, b) => {
         return b.length - a.length;
     });
-    //now that we have the sorted observations we get thier id
+    //now that we have the sorted observations we get thier id for n users
     let userID = [];
     for (let i = 0; i < n; i++) {
         if (sortedUserObservations[i].length > 0) {
             userID[i] = sortedUserObservations[i][0].participant;
         }
     }
-
-    //now we get top 10 users based on their observations
+    //now we get top n users based on their observations
     let userLeaderBoard = [];
     for (let i = 0; i < n; i++) {
         userLeaderBoard[i] = Model.get_user(userID[i]);
@@ -62,12 +61,13 @@ function hashChange() {
         }
         else {
             id = parseInt(hash.id);
+            //getting the observation
             let oneObservation = Model.get_observation(id);
-
+            //getting the user whos done the observation 
             let user = Model.get_user(parseInt(oneObservation.participant));
-
+            //viewing the user
             views.user_view("recent_observations", user);
-            
+            //viewing the observation
             views.observation_view("leaderboard_users", oneObservation);  
         }
     }
@@ -75,29 +75,37 @@ function hashChange() {
     else if (path === "users") {
         if (id === undefined) {
             let users = Model.get_users();
-            views.list_users_leaderboard_view("leaderboard_users", users);
+            //sorting the users and getting all of the users
+            let userLeaderBoard = userSortForLeaderboard(users, users.length);
+            views.list_users_view("leaderboard_users", userLeaderBoard);
             //setting leaderboard to empty
             document.getElementById("recent_observations").innerHTML = "";
         }
         else {
             id = parseInt(hash.id);
             let user = Model.get_user(id);
+            //getting all of the observations for the user
             let observations = Model.get_user_observations(id);
+            //viewing the user
             views.user_view("recent_observations", user);
+            //viewing all of the observations done by that user
             views.list_recent_observationst_view("leaderboard_users", observations);
         }
     }
     //submit
     else if(path === "submit"){
-        views.submit_view("recent_observations");
-        document.getElementById("leaderboard_users").innerHTML = "";
-        //handeling the form submition
+        //viewing the form
+        views.submit_view("leaderboard_users");
+        document.getElementById("recent_observations").innerHTML = "";
+        
+       
         let form = document.getElementById("form");
-    
+        //handeling the form submition
         form.onsubmit = observationFormHandeler;
     }
 }
 
+//for handeling the form submition
 function observationFormHandeler() {  
     let location = document.getElementById("location_requirement");
     let temperature = document.getElementById("temperature_requirement");
@@ -110,7 +118,7 @@ function observationFormHandeler() {
     let temperatureValue = formdata.get("temperature");
     let hightValue = formdata.get("height");
     let girthValue = formdata.get("girth");
-    //checking if any field is not been filled
+    //checking if any field has not been filled
     if((locationValue === "") || (temperatureValue === "") || (hightValue === "") || (girthValue === "")){
        
         if(locationValue === ""){
@@ -142,8 +150,9 @@ function observationFormHandeler() {
         temperature.innerHTML = "";
         hight.innerHTML = "";
         girth.innerHTML = "";
+        //if all the fields are complete, we can add the observation
         Model.add_observation(formdata);
     }
- 
+    //returning false so the page won't refresh
     return false;
 }

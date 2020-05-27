@@ -1,5 +1,5 @@
 export { list_recent_observationst_view,list_observationst_view, list_users_leaderboard_view, user_view, submit_view,
-    observation_view };
+    observation_view, list_users_view };
 
 // apply_template - apply a template to some data
 //  and insert into the page
@@ -16,7 +16,7 @@ function apply_template(targetid, templateid, data) {
     target.innerHTML = template(data);
 }
 
-// listUsersView - generate a view of a list of units
+// list_recent_observationst_view - generate a view of a list of observation
 //   and insert it at `targetid` in the document
 function list_recent_observationst_view(targetid, observations) {
     apply_template(targetid, "recent-observations-list-template", { 'observations': observations });
@@ -32,10 +32,15 @@ function observation_view(targetid, observation) {
     apply_template(targetid, "observation-template", observation);
 }
 
-// userView - generate a view of a individual user
+// list_users_leaderboard_view - generate a view of a list of users
 //   and insert it at `targetid` in the document
 function list_users_leaderboard_view(targetid, users) {
     apply_template(targetid, "leaderboard-users-list-template", { 'users': users });
+}
+
+//list of all users
+function list_users_view(targetid, users) {
+    apply_template(targetid, "users-list-template", { 'users': users });
 }
 
 // template for single user view

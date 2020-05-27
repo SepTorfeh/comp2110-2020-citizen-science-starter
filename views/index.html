@@ -18,9 +18,9 @@
   <body>
 
     <header>
-      <div id="logo"></div>
+      <div id="logo"><img src="/static/images/tree.png" alt="logo"></div>
       <nav>
-        <ul>
+        <ul id="top-nav">
           <li><a href="#">Home</a></li>
           <li><a href="#!/users">Users</a></li>
           <li><a href="#!/observations">Observations</a></li>
@@ -30,28 +30,25 @@
     </header>
 
     <div id="content">
-
       <div id="heading">
-
         <hgroup>
           <h1>Citizen Science</h1>
           <h2>Understanding Our Trees</h2>
         </hgroup>
+      </div>
+    </div>
 
-        <div id="target"></div>
-        <!-- list of recent observations -->
-        <div id="recent_observations">
-        </div>
+    <div id="template-div">
+      <!-- list of recent observations -->
+      <div id="recent_observations">
+      </div>
 
-        <!-- current top 10 leaderboard of users -->
-        <div id="leaderboard_users">
-        </div>
-
+      <!-- current top 10 leaderboard of users -->
+      <div id="leaderboard_users">
       </div>
     </div>
 
     <footer>
-
       <div id="social">
         <ul>
           <li id="social-twitter"><a href="#">Twitter</a></li>
@@ -72,12 +69,12 @@
 
     <!-- Templates -->
 
-    <!-- without table, list of recent observations -->
+    <!-- list of recent observations -->
     <script id="recent-observations-list-template" type="text/html">
       <h1>Recent Observations</h1>
         <ul>
           {{#each observations}}
-          <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
+          <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}}&#176 {{weather}}</a></li>
           {{/each}}
         </ul>
     </script>
@@ -94,24 +91,64 @@
 
     <!-- single observation -->
     <script id="observation-template" type="text/html">
-      <h1>Tree Observation</h1>
-      <ul>
-        <li>Location: {{location}}</li>
-        <li>Tempreature: {{temperature}}</li>
-        <li>Weather: {{weather}}</li>
-        <li>Wind: {{wind}}</li>
-        <li>Tree Height: {{height}}</li>
-        <li>Tree Girth at Base: {{girth}}</li>
-        <li>Leaf Size: {{leaf_size}}</li>
-        <li>Leaf Shape: {{leaf_shape}}</li>
-        <li>Bark Colour: {{bark_colour}}</li>
-        <li>Bark Texture: {{bark_texture}}</li>
-      </ul>
+        <h1>Tree Observation</h1>
+        <table id="observation-table-of-content">
+          <tr>
+            <td>Location</td>
+            <td>{{location}}</td>
+          </tr>
+          <tr>
+            <td>Temperature</td>
+            <td>{{temperature}}</td>
+          </tr>
+          <tr>
+            <td>Weather</td>
+            <td>{{weather}}</td>
+          </tr>
+          <tr>
+            <td>Wind</td>
+            <td>{{wind}}</td>
+          </tr>
+          <tr>
+            <td>Tree Height</td>
+            <td>{{height}}</td>
+          </tr>
+          <tr>
+            <td>Tree Girth at Base</td>
+            <td>{{girth}}</td>
+          </tr>
+          <tr>
+            <td>Leaf Size</td>
+            <td>{{leaf_size}}</td>
+          </tr>
+          <tr>
+            <td>Leaf Shape</td>
+            <td>{{leaf_shape}}</td>
+          </tr>
+          <tr>
+            <td>Bark Colour</td>
+            <td>{{bark_colour}}</td>
+          </tr>
+          <tr>
+            <td>Bark Texture</td>
+            <td>{{bark_texture}}</td>
+          </tr>
+        </table>
     </script>
 
     <!-- user leaderboard -->
     <script id="leaderboard-users-list-template" type="text/html">
       <h1>Users leaderboard</h1>
+        <ol>
+          {{#each users}}
+          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          {{/each}}
+        </ol>
+    </script>
+
+    <!-- users list -->
+    <script id="users-list-template" type="text/html">
+      <h1>Users list</h1>
         <ul>
           {{#each users}}
           <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
@@ -122,10 +159,12 @@
     <!-- single-user-view -->
     <script id="user-template" type="text/html">
       <h1>User</h1>
-      <div><img src="{{avatar}}" alt="{{first_name}}"></div>
-      <ul>
-        <li>{{first_name}} {{last_name}}</li>
-      </ul>
+      <div id="user">
+        <div><img src="{{avatar}}" alt="{{first_name}}"></div>
+        <ul>
+          <li>{{first_name}}  {{last_name}}</li>
+        </ul>
+      </div>
     </script>
     
     <!-- form tamplate -->
@@ -135,16 +174,16 @@
         <fieldset>
           <legend>General</legend> 
           <!-- participant -->
-          <label for="participant"> Participant </label>
-          <input type="text" id="participant" name="participant" value="0"><br>
+          <label class="label_form" for="participant"> Participant </label>
+          <input class="input_form" type="text" id="participant" name="participant" value="0"><br>
           <!-- location -->
-          <label for="location"> Location </label>
-          <input type="text" id="location" name="location" placeholder="Suburb, State"><span id="location_requirement"></span><br>
+          <label class="label_form" for="location"> Location </label>
+          <input class="input_form" type="text" id="location" name="location" placeholder="Suburb, State"><span class="warning_form" id="location_requirement"></span><br>
           <!-- temperature -->
-          <label for="temperature"> Tempreature </label>
-          <input type="text" id="temperature" name="temperature"><span id="temperature_requirement"></span><br>
+          <label class="label_form" for="temperature"> Tempreature </label>
+          <input class="input_form" type="text" id="temperature" name="temperature"><span class="warning_form" id="temperature_requirement"></span><br>
           <!-- weather -->
-          <label for="weather"> Weather </label>
+          <label class="label_form" for="weather"> Weather </label>
           <select id="weather" name="weather">
             <option value="fine">Fine</option>
             <option value="sunny">Sunny</option>
@@ -152,7 +191,7 @@
             <option value="stormy">Stormy</option>
           </select><br>
           <!-- wind -->
-          <label for="wind"> Wind </label>
+          <label class="label_form" for="wind"> Wind </label>
           <select id="wind" name="wind">
             <option value="none">None</option>
             <option value="light">Light</option>
@@ -163,27 +202,27 @@
         <fieldset>
           <legend>About Your Tree</legend>
           <!-- tree height -->
-          <label for="height"> Tree Height </label>
-          <input type="text" id="height" name="height"><span id="height_requirement"></span><br>
+          <label class="label_form" for="height"> Tree Height </label>
+          <input class="input_form" type="text" id="height" name="height"><span class="warning_form" id="height_requirement"></span><br>
           <!-- tree girth -->
-          <label for="girth"> Tree Girth at Base </label>
-          <input type="text" id="girth" name="girth"><span id="girth_requirement"></span><br>
+          <label class="label_form" for="girth"> Tree Girth at Base </label>
+          <input class="input_form" type="text" id="girth" name="girth"><span class="warning_form" id="girth_requirement"></span><br>
           <!-- leaf size -->
-          <label for="leaf_size"> Leaf Size </label>
+          <label class="label_form" for="leaf_size"> Leaf Size </label>
           <select name="leaf_size" id="leaf_size">
             <option value="small"> Small </option>
             <option value="medium"> Medium </option>
             <option value="large"> Large </option>
           </select><br>
           <!-- leaf shape -->
-          <label for="leaf_shape"> Leaf Shape </label>
+          <label class="label_form" for="leaf_shape"> Leaf Shape </label>
           <select name="leaf_shape" id="leaf_shape">
             <option value="rounded"> Rounded </option>
             <option value="pointy"> Pointy </option>
             <option value="divided"> Divided </option>
           </select><br>
           <!-- bark colour -->
-          <label for="bark_colour"> Bark Colour </label>
+          <label class="label_form" for="bark_colour"> Bark Colour </label>
           <select name="bark_colour" id="bark_colour">
             <option value="grey"> Grey </option>
             <option value="silver"> Silver </option>
@@ -191,7 +230,7 @@
             <option value="red"> Red </option>
           </select><br>
           <!-- bark texture -->
-          <label for="bark_texture"> Bark Texture </label>
+          <label class="label_form" for="bark_texture"> Bark Texture </label>
           <select name="bark_texture" id="bark_texture">
             <option value="smooth"> Smooth </option>
             <option value="spotty"> Spotty </option>
@@ -209,38 +248,3 @@
   </body>
 
 </html>
-
-<!-- list of recent observations -->
-  <!-- <script id="recent-observations-list-template" type="text/html">
-  <h1>Recent Observations</h1>
-  <table>
-      <tr>
-          <th>ID</th>
-          <th>Leaf Shape</th>
-          <th>Bark Texture</th>
-      </tr> 
-      {{#each observations}}
-          <tr>
-              <td class=observationsID data-id={{id}} ><a href="#!/observations/{{id}}">{{id}}</td>
-              <td>{{leaf_shape}}</td>
-              <td>{{bark_texture}}</td> 
-          </tr>
-      {{/each}}
-  </table>
-</script>  -->
-
-  <!-- current top 10 leaderboard of users -->
-  <!-- <script id="leaderboard-users-list-template" type="text/html">
-    <table>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-        </tr>
-        {{#each users}}
-            <tr>
-                <td class=usersID data-id={{id}} >{{first_name}}</td>
-                <td>{{last_name}}</td>
-            </tr>
-        {{/each}}
-    </table>
-    </script> -->
