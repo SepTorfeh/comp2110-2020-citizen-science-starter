@@ -14,6 +14,10 @@ const Model = {
     observations_url: '/api/observations',
     users_url: '/api/users',
 
+    //these to variables are for checking if observations or users have been updated
+    observations_ready: 0,
+    users_ready: 0,
+
     // this will hold the data stored in the model
     data: {
         observations: [],
@@ -34,7 +38,7 @@ const Model = {
             .then(
                 (data) => {
                     this.data.users = data;
-
+                    this.users_ready = 1;
                     let event = new CustomEvent("modelUpdated", { detail: this });
                     window.dispatchEvent(event);
                 }
@@ -55,7 +59,7 @@ const Model = {
             .then(
                 (data) => {
                     this.data.observations = data;
-
+                    this.observations_ready = 1;
                     let event = new CustomEvent("modelUpdated", { detail: this });
                     window.dispatchEvent(event);
                 }
@@ -160,7 +164,33 @@ const Model = {
                 return users[i];
         }
         return null;
-    }
+    },
 
+    //this method sortes the user based on their observation
+    //and gives back n users
+    userSortForLeaderboard: function (users, n){
+        let userObservations = [];
+        //getting all of the observations for each user
+        for (let i = 0; i < users.length; i++) {
+            userObservations[i] = Model.get_user_observations(users[i].id);
+        }
+        //sort "userObservations" array based on the length
+        let sortedUserObservations = userObservations.slice().sort((a, b) => {
+            return b.length - a.length;
+        });
+        //now that we have the sorted observations we get thier id for n users
+        let userID = [];
+        for (let i = 0; i < n; i++) {
+            if (sortedUserObservations[i].length > 0) {
+                userID[i] = sortedUserObservations[i][0].participant;
+            }
+        }
+        //now we get top n users based on their observations
+        let userLeaderBoard = [];
+        for (let i = 0; i < n; i++) {
+            userLeaderBoard[i] = Model.get_user(userID[i]);
+        }
+        return userLeaderBoard;
+    }
 
 };
