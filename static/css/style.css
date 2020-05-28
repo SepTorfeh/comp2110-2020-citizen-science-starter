@@ -190,6 +190,45 @@ footer li a {
     text-decoration: none;
 }
 
+/* Recent Users Styling */
+.recent-observations-container,.each-user-leaderboard-container{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    grid-gap: 20px;
+}
+.recent-observations-container li,.each-user-leaderboard-container li{
+    text-transform: uppercase;
+    list-style: none;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.recent-observations-container li:hover,.each-user-leaderboard-container li:hover{
+   transform: scale(1.03);
+   transition: 0.5s ease all;
+}
+.each-recent-observation,.each-user-leaderboard{
+    border: 2px solid black;
+}
+.each-recent-observation-link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.each-recent-observation:hover,.each-user-leaderboard:hover{
+    border: 2px solid #2979FF;
+}
+/* styling the form */
+.submit{
+    margin: 20px;
+    padding: 10px;
+    display: block;
+    margin-right: auto;
+    margin-left:auto ;
+}
+
 /* when the size get's small (like on a phone) */
 
 @media(max-width: 670px){

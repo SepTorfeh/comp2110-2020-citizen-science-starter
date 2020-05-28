@@ -14,7 +14,7 @@ const Model = {
     observations_url: '/api/observations',
     users_url: '/api/users',
 
-    //these to variables are for checking if observations or users have been updated
+    //these two variables are for checking if observations or users have been updated
     observations_ready: 0,
     users_ready: 0,
 
@@ -38,6 +38,7 @@ const Model = {
             .then(
                 (data) => {
                     this.data.users = data;
+                    //setting the users_ready to 1 meaning it has been updated
                     this.users_ready = 1;
                     let event = new CustomEvent("modelUpdated", { detail: this });
                     window.dispatchEvent(event);
@@ -59,6 +60,7 @@ const Model = {
             .then(
                 (data) => {
                     this.data.observations = data;
+                    //setting the observations_ready to 1 meaning it has been updated
                     this.observations_ready = 1;
                     let event = new CustomEvent("modelUpdated", { detail: this });
                     window.dispatchEvent(event);

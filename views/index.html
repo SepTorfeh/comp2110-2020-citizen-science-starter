@@ -72,9 +72,16 @@
     <!-- list of recent observations -->
     <script id="recent-observations-list-template" type="text/html">
       <h1>Recent Observations</h1>
-        <ul>
+        <ul class="recent-observations-container">
           {{#each observations}}
-          <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}}&#176 {{weather}}</a></li>
+          <li class="each-recent-observation">
+            <a class="each-recent-observation-link" href="/#!/observations/{{id}}">
+           <p> {{timestamp}} </p>
+            <p> {{location}} </p>
+             <p>{{temperature}}&#176 </p>
+             <p>{{weather}}</p>
+
+             </a></li>
           {{/each}}
         </ul>
     </script>
@@ -82,9 +89,13 @@
     <!-- observation list -->
     <script id="observations-list-template" type="text/html">
       <h1>Observations</h1>
-        <ul>
+        <ul class="recent-observations-container">
           {{#each observations}}
-          <li><a href="/#!/observations/{{id}}">{{timestamp}} | {{location}} -- {{temperature}} {{weather}}</a></li>
+          <li class="each-recent-observation"><a href="/#!/observations/{{id}}">
+            <p> {{timestamp}} </p>
+            <p> {{location}} </p>
+             <p>{{temperature}}&#176 </p>
+             <p>{{weather}}</p></a></li>
           {{/each}}
         </ul>
     </script>
@@ -139,9 +150,9 @@
     <!-- user leaderboard -->
     <script id="leaderboard-users-list-template" type="text/html">
       <h1>Users leaderboard</h1>
-        <ol>
+        <ol class="each-user-leaderboard-container">
           {{#each users}}
-          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          <li class="each-user-leaderboard"><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
           {{/each}}
         </ol>
     </script>
@@ -149,9 +160,9 @@
     <!-- users list -->
     <script id="users-list-template" type="text/html">
       <h1>Users list</h1>
-        <ul>
+        <ul class="recent-observations-container">
           {{#each users}}
-          <li><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+          <li class="each-recent-observation"><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
           {{/each}}
         </ul>
     </script>
@@ -169,13 +180,13 @@
     
     <!-- form tamplate -->
     <script id="form-template" type="text/html">
-      <h1>Tree Observation</h1>
+      <h1>Tree Observation Form</h1>
       <form id="form" action="">
         <fieldset>
           <legend>General</legend> 
           <!-- participant -->
           <label class="label_form" for="participant"> Participant </label>
-          <input class="input_form" type="text" id="participant" name="participant" placeholder="0"><br>
+          <input class="input_form" type="text" id="participant" name="participant" value="0"><br>
           <!-- location -->
           <label class="label_form" for="location"> Location </label>
           <input class="input_form" type="text" id="location" name="location" placeholder="Suburb, State"><span class="warning_form" id="location_requirement"></span><br>
@@ -240,9 +251,9 @@
           </select><br>
         </fieldset>
         <!-- submit button -->
-        <input type="submit" value="Submit">
-
+        <input class="submit" type="submit" value="Submit">
       </form>
+      <div style="height:240px; background:white;"></div>
     </script>
 
   </body>
