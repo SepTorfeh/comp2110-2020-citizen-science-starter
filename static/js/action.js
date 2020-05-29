@@ -79,7 +79,8 @@ function hashChange() {
 
 //for handeling the form submition
 function observationFormHandeler() {
-    //getting the span for each warning  
+    //getting the span for each warning
+    let participant = document.getElementById("participant_requirement");  
     let location = document.getElementById("location_requirement");
     let temperature = document.getElementById("temperature_requirement");
     let hight =  document.getElementById("height_requirement");
@@ -87,13 +88,20 @@ function observationFormHandeler() {
     //creating a FormDate object from the form that we submit on the website
     let formdata = new FormData(this);
     //getting the value of the required inputs
+    let participantValue = formdata.get("participant");
     let locationValue = formdata.get("location");
     let temperatureValue = formdata.get("temperature");
     let hightValue = formdata.get("height");
     let girthValue = formdata.get("girth");
     //checking if any field has not been filled
-    if((locationValue === "") || (temperatureValue === "") || (hightValue === "") || (girthValue === "")){
-       
+    if((participantValue === "") || (locationValue === "") || (temperatureValue === "") || (hightValue === "") || (girthValue === "")){
+
+        if(participantValue === ""){
+            participant.innerHTML = "Missing required field: participant";
+        } else{
+            participant.innerHTML = "";
+        }
+
         if(locationValue === ""){
             location.innerHTML = "Missing required field: location";
         } else{
