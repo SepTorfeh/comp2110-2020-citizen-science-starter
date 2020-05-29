@@ -197,12 +197,22 @@ footer li a {
     grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
     grid-gap: 20px;
 }
-.recent-observations-container li,.each-user-leaderboard-container li{
+.recent-observations-container li
+{
     text-transform: uppercase;
     list-style: none;
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+.each-user-leaderboard-container li{
+    text-transform: uppercase;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.leaderboard-user-border{
+    border: 2px solid black;
 }
 .recent-observations-container li:hover,.each-user-leaderboard-container li:hover{
    transform: scale(1.03);
@@ -210,6 +220,14 @@ footer li a {
 }
 .each-recent-observation,.each-user-leaderboard{
     border: 2px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.all-observations-link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .each-recent-observation-link{
     display: flex;

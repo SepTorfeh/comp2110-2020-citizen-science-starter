@@ -91,7 +91,8 @@
       <h1>Observations</h1>
         <ul class="recent-observations-container">
           {{#each observations}}
-          <li class="each-recent-observation"><a href="/#!/observations/{{id}}">
+          <li class="each-recent-observation">
+            <a class="all-observations-link" href="/#!/observations/{{id}}">
             <p> {{timestamp}} </p>
             <p> {{location}} </p>
              <p>{{temperature}}&#176 </p>
@@ -152,7 +153,10 @@
       <h1>Users leaderboard</h1>
         <ol class="each-user-leaderboard-container">
           {{#each users}}
-          <li class="each-user-leaderboard"><a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+        
+          <li class="each-user-leaderboard">
+            <a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+       
           {{/each}}
         </ol>
     </script>
