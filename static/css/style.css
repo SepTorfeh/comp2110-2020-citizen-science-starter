@@ -23,6 +23,7 @@
 body {
     background-color: white;
     margin: 0;
+    font-family: "Alef";
 }
 
 header {
@@ -30,7 +31,8 @@ header {
     grid-template-columns: 0.5fr 5fr;
     grid-template-rows: 1fr;
     width: 100%;
-    background-color: #2979FF;
+    background-color: #B2DFDB;
+    /* #2979FF */
 }
 
 #logo img {
@@ -40,7 +42,7 @@ header {
 
 #logo {
     grid-column: 1/2;
-    margin: auto;
+    padding: 10px;
 }
 
 /* style for the nav bar */
@@ -101,8 +103,8 @@ header nav {
 
 #template-div h1{
     text-align: center;
-    border-bottom: 6px solid #0D47A1;
-    background-color: #2979FF;
+    border-bottom: 6px solid rgb(84, 136, 213);
+    background-color: #FFF9C4;
 }
 
 #recent_observations {
@@ -146,7 +148,7 @@ header nav {
 
 footer{
     margin: 0;
-    background-color: #2979FF;
+    background-color: #B2DFDB;
     display: grid;
     grid-template-columns: 1fr 2fr 2fr;
     grid-template-rows: 1fr;
@@ -191,51 +193,52 @@ footer li a {
 }
 
 /* Recent Users Styling */
-.recent-observations-container,.each-user-leaderboard-container{
+.recent-observations-container,.each-user-leaderboard-container {
     padding: 20px;
     display: grid;
     grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
     grid-gap: 20px;
 }
-.recent-observations-container li
-{
+.recent-observations-container li {
+    background-color: rgb(206, 235, 217);
     text-transform: uppercase;
     list-style: none;
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.each-user-leaderboard-container li{
+.each-user-leaderboard-container li {
+    background-color: rgb(206, 235, 217);
     text-transform: uppercase;
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.leaderboard-user-border{
+.leaderboard-user-border {
     border: 2px solid black;
 }
-.recent-observations-container li:hover,.each-user-leaderboard-container li:hover{
+.recent-observations-container li:hover,.each-user-leaderboard-container li:hover {
    transform: scale(1.03);
    transition: 0.5s ease all;
 }
-.each-recent-observation,.each-user-leaderboard{
-    border: 2px solid black;
+.each-recent-observation,.each-user-leaderboard {
+    border: 2px solid #FFF9C4;
     margin-left: 10px;
     margin-right: 10px;
 }
-.all-observations-link{
+.all-observations-link {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.each-recent-observation-link{
+.each-recent-observation-link {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.each-recent-observation:hover,.each-user-leaderboard:hover{
+.each-recent-observation:hover,.each-user-leaderboard:hover {
     border: 2px solid #2979FF;
 }
 /* styling the form */
