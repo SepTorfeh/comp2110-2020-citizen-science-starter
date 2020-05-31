@@ -19,9 +19,16 @@ window.addEventListener("modelUpdated", function (e) {
 window.addEventListener("observationAdded", function(e){
     //check if the form successfully has been added to the API
     if(e.detail.status === "success"){
+        //updating the observations
         Model.update_observations();
-        //going to the user 0 page
-        window.location.hash = "!/users/0";
+
+        //getting the user who made the observation
+        //but at this stage of the project
+        //we just use user "0" for new observations
+        let user = e.detail.observation.participant;
+        
+        //going to the user page
+        window.location.hash = "!/users/"+user;
     }
 });
 
